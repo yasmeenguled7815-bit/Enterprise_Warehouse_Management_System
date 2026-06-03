@@ -1,4 +1,4 @@
-package Enum;
+package com.EWMS.Enum;
 
 public enum OrderStatus {
 	
