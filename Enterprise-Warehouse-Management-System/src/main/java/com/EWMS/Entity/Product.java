@@ -10,8 +10,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+
 public class Product {
 
 	@Id
@@ -21,7 +23,7 @@ public class Product {
 	private String name;
 
 	private String sku;
-
+	
 	private Double price;
 	
 	@OneToMany(mappedBy = "product")
@@ -55,7 +57,7 @@ public class Product {
 	public void setSku(String sku) {
 		this.sku = sku;
 	}
-
+	
 	public Double getPrice() {
 		return price;
 	}

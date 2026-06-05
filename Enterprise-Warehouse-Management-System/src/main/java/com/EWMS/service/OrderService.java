@@ -19,7 +19,14 @@ public class OrderService {
 	@Autowired
 	private InventoryItemRepository inventoryItemRepository;
 	
-	
+public Order updateStatus(Long orderId, OrderStatus status) {
+		
+		Order order=orderRepository.findById(orderId)
+				.orElseThrow(() -> new RuntimeException("Order not found"));
+			
+			order.setStatus(status);
+			return orderRepository.save(order);
+		}
 	}
 	
 	

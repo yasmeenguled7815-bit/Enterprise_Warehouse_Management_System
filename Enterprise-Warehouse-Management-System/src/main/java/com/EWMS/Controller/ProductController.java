@@ -44,7 +44,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public Product update(@PathVariable Long id,@RequestBody Product updated) {
-
+    	
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
 
