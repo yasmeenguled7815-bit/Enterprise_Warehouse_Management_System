@@ -41,4 +41,11 @@ public class OrderService {
 		order.setStatus(status);
 		return orderRepository.save(order);
 	}
+
+	public Order createOrder(Order order) {
+
+        order.setStatus(OrderStatus.CREATED);
+
+        return orderRepository.save(order);
+	}
 }
