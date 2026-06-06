@@ -1,6 +1,8 @@
 package com.EWMS.Entity;
 
 
+import java.time.LocalDateTime;
+
 import com.EWMS.Enum.OrderStatus;
 
 import jakarta.persistence.Entity;
@@ -24,6 +26,9 @@ public class Order {
 	
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
+	
+
+    private LocalDateTime orderDate;
 	
 	@ManyToOne
 	private Product product;
@@ -50,6 +55,14 @@ public class Order {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+	
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public Product getProduct() {
