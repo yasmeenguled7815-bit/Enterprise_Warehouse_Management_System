@@ -3,6 +3,7 @@ package com.EWMS.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,10 +29,10 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
-    @GetMapping
-    public List<Product> getAll() {
-        return productService.getAllproducts();
-    }
+//    @GetMapping
+//    public List<Product> getAll() {
+//        return productService.getAllproducts();
+//    }
 
     @GetMapping("/{id}")
     public Product getById(@PathVariable Long id) {
@@ -47,5 +48,11 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.deleteProduct(id);
+    }
+    
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Product> getAllProducts(){
+    	return productService.getAllproducts();
     }
 }
