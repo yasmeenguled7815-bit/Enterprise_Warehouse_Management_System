@@ -39,31 +39,31 @@ public class WarehouseController {
 
 	// Get By Id
 	@GetMapping("/{id}")
-	   public Warehouse getById(@PathVariable Long id){
-		 return warehouseRepository.findById(id)
-	    	.orElseThrow(()-> new RuntimeException("Warehouse not found with id: " + id));
+	public Warehouse getById(@PathVariable Long id) {
+		return warehouseRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Warehouse not found with id: " + id));
 	}
 
-//Update
-@PutMapping("/{id}")
-public Warehouse update(@PathVariable Long id,@RequestBody Warehouse update) {
-	Warehouse warehouse=warehouseRepository.findById(id)
-			.orElseThrow(() -> new RuntimeException("Warehouse not found with id:" +id));
-	
-	warehouse.setCode(update.getCode());
-	warehouse.setName(update.getName());
-	warehouse.setLocation(update.getLocation());
-	warehouse.setCity(update.getCity());
-	warehouse.setCountry(update.getCountry());
-	
-	return warehouseRepository.save(warehouse);
-}
+	// Update
+	@PutMapping("/{id}")
+	public Warehouse update(@PathVariable Long id, @RequestBody Warehouse update) {
+		Warehouse warehouse = warehouseRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Warehouse not found with id:" + id));
 
-//Delete
-@DeleteMapping("/{id}")
-public void delete(@PathVariable Long id) {
+		warehouse.setCode(update.getCode());
+		warehouse.setName(update.getName());
+		warehouse.setLocation(update.getLocation());
+		warehouse.setCity(update.getCity());
+		warehouse.setCountry(update.getCountry());
 
-	warehouseRepository.deleteById(id);
-}
+		return warehouseRepository.save(warehouse);
+	}
+
+    //Delete
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+
+		warehouseRepository.deleteById(id);
+	}
 
 }

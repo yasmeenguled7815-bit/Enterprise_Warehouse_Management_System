@@ -13,7 +13,17 @@ import com.google.zxing.common.BitMatrix;
 public class BarcodeService {
 
 	public String generateBarcode(String sku) throws Exception{
+		
+		System.out.println("Barcode method called");
+		
+		File folder=new File("barcodes");
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
 		String path="barcodes/"+sku+".png";
+		
+		System.out.println("Saving to :" +new File(path).getAbsolutePath());
 		
 		BitMatrix matrix=new MultiFormatWriter().encode(sku,BarcodeFormat.CODE_128, 300,100);
 		

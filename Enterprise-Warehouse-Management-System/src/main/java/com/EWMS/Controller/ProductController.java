@@ -14,50 +14,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.EWMS.Entity.Product;
 import com.EWMS.Repository.ProductRepository;
+import com.EWMS.service.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-	
 
-	private final ProductRepository productRepository;
-
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    @Autowired
+    private ProductService productService;
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return productRepository.save(product);
+    public Product create(@RequestBody Product product) throws Exception {
+        return productService.saveProduct(product);
     }
 
     @GetMapping
     public List<Product> getAll() {
-        return productRepository.findAll();
+        return productService.getAllproducts();
     }
 
     @GetMapping("/{id}")
     public Product getById(@PathVariable Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return productService.getProductById(id);
     }
-
+    
     @PutMapping("/{id}")
-    public Product update(@PathVariable Long id,@RequestBody Product updated) {
-    	
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
-
-        product.setName(updated.getName());
-        product.setSku(updated.getSku());
-        product.setPrice(updated.getPrice());
-
-        return productRepository.save(product);
+    public Product update(@PathVariable Long id,
+                          @RequestBody Product updated) {
+        return productService.updateProduct(id, updated);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        productRepository.deleteById(id);
+        productService.deleteProduct(id);
     }
-
 }

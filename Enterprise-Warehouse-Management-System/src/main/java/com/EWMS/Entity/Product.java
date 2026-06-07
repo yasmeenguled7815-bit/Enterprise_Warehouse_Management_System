@@ -26,6 +26,8 @@ public class Product {
 	
 	private Double price;
 	
+	private String barcodePath;
+	
 	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<Receiving> receivings;
@@ -66,6 +68,14 @@ public class Product {
 		this.price = price;
 	}
 	
+	public String getBarcodePath() {
+		return barcodePath;
+	}
+
+	public void setBarcodePath(String barcodePath) {
+		this.barcodePath = barcodePath;
+	}
+
 	public List<Receiving> getReceivings() {
 		return receivings;
 	}
