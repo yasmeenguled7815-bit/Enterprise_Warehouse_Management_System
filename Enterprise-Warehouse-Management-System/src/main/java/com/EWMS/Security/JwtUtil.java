@@ -13,7 +13,7 @@ public class JwtUtil {
 
 	
 	private final String SECRET="warehousemanagementsystemsecretkey";
-	 String generateToken(String username) {
+	public String generateToken(String username) {
 		
 		return Jwts.builder().setSubject(username).
 				setIssuedAt(new Date()).
