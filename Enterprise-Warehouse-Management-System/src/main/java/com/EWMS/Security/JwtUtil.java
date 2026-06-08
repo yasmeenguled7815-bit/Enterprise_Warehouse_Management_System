@@ -12,7 +12,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 
 	
-	private final String SECRET="warehousemanagementsystemsecretkey";
+	private final String SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS256).toString();
 	public String generateToken(String username) {
 		
 		return Jwts.builder().setSubject(username).

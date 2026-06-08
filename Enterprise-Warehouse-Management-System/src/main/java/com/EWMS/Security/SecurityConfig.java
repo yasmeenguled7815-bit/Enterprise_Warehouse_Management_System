@@ -49,15 +49,16 @@ public class SecurityConfig {
 	    return NoOpPasswordEncoder.getInstance();
 	}
 	
-//	@Bean
-//	public AuthenticationProvider authenticationProvider() {
-//	    DaoAuthenticationProvider authProvider =
-//	            new DaoAuthenticationProvider(userDetailsService());
-//
-//	    authProvider.setPasswordEncoder(passwordEncoder());
-//
-//	    return authProvider;
-//	}
+	@Bean
+	public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
+
+	    DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+
+	//    provider.setUserDetailsPasswordService(userDetailsService);
+	    provider.setPasswordEncoder(passwordEncoder());
+
+	    return provider;
+	}
 
 	}
 
