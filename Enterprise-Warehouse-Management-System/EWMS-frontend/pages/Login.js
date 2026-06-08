@@ -1,5 +1,8 @@
 //src/pages/login.js
 
+import React,{useState} from "react";
+import api from "../api/axiosConfig";
+
 function Login({onLogin}){
 	const [username,setUsername]=useState("");
 	const [password,setPassword]=useState("");
