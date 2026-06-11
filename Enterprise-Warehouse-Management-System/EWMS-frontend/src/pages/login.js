@@ -7,26 +7,46 @@ function Login({ onLogin }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-
     const handleLogin = async () => {
         try {
             const res = await api.post("/auth/login", {
-                username, password,
+                username,
+                password
             });
 
             localStorage.setItem("token", res.data.token);
             onLogin();
         } catch (err) {
             alert("Login failed");
+            console.error(err);
         }
     };
+
     return (
         <div>
             <h2>Warehouse Login</h2>
 
-            <input type="password" palacehoder="Password" onChange={(e) => setPassword(e.target.value)}
+            <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
             />
-            <button onClick={hanldeLogin}>Login</button>
+
+            <br /><br />
+
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <br /><br />
+
+            <button onClick={handleLogin}>
+                Login
+            </button>
         </div>
     );
 }

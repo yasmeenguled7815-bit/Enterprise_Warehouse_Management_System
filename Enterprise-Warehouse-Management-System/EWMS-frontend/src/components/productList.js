@@ -1,4 +1,4 @@
-//src/components/productList.jas
+//src/components/productList.js
 
 import React, {useEffect,useState} from "react";
 import api from "../api/axiosConfig";
@@ -26,3 +26,5 @@ function ProductList(){
 			</div>
 	);
 }
+
+export default ProductList;
