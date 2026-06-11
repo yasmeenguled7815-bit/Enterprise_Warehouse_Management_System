@@ -1,8 +1,8 @@
 //src/pages/Dashboard.js
 
 import React, { useState } from "react";
-import ProductList from "../components/ProductList";
-import AddProduct from "../components/AddProduct";
+import ProductList from "./src/components/ProductList";
+import AddProduct from "./src/components/AddProduct";
 
 function Dashboard() {
     const [refresh, setRefresh] = useState(false);
