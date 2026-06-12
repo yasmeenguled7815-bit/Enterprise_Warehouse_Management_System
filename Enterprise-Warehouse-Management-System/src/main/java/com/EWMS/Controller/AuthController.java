@@ -13,7 +13,7 @@ import com.EWMS.DTO.AuthRequest;
 import com.EWMS.Security.JwtUtil;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
 	@Autowired
@@ -24,15 +24,22 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public String login(@RequestBody AuthRequest request) {
-		
-		 System.out.println("Username = " + request.getUsername());
-		    System.out.println("Password = " + request.getPassword());
 
-		authManager.authenticate(new UsernamePasswordAuthenticationToken(
-				request.getUsername(), request.getPassword()));
+	    System.out.println("Username = " + request.getUsername());
+	    System.out.println("Password = " + request.getPassword());
 
-		return jwtUtil.generateToken(request.getUsername());
+	    authManager.authenticate(
+	            new UsernamePasswordAuthenticationToken(
+	                    request.getUsername(),
+	                    request.getPassword()));
 
+	    System.out.println("Authentication Success");
+
+	    String token = jwtUtil.generateToken(request.getUsername());
+
+	    System.out.println("Generated Token: " + token);
+
+	    return token;
 	}
 	
 	 @GetMapping("/test")

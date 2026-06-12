@@ -22,11 +22,16 @@ public class JwtUtil {
 			SignatureAlgorithm.HS256).compact();
 	}
 	
-	public String extraUsername(String token) {
+	public String extractUsername(String token) {
 		return Jwts.parserBuilder()
 				.setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes()))
 				.build().parseClaimsJws(token)
 				.getBody().getSubject();
+	}
+	
+	public boolean validateToken(String token, String username) {
+	    String extractedUsername = extractUsername(token);
+	    return extractedUsername.equals(username);
 	}
 	
 }
