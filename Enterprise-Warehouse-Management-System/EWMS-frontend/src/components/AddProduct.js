@@ -19,7 +19,7 @@ function AddProduct({ refresh }) {
         refresh();
     };
 
-    retutn(
+    return(
         <div>
             <h3>Add Product</h3>
 

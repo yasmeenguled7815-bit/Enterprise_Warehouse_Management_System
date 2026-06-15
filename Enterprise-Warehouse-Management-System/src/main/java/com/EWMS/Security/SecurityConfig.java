@@ -27,20 +27,25 @@ public class SecurityConfig {
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	@Bean
 	public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception{
 		
 		http
 		    .csrf(csrf ->csrf.disable())
 		    .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+		    .authenticationProvider(authenticationProvider(userDetailsService))
 		    .authorizeHttpRequests(auth->auth
 		    		.requestMatchers("/api/auth/**").permitAll()
+		    		
 		    		.requestMatchers("/api/products/**").hasRole("ADMIN")
 		    		
 		    		.requestMatchers("/api/orders/**").hasAnyRole("ADMIN","OPERATOR")
 		    		.anyRequest().authenticated())
-		    		 .addFilterBefore(jwtAuthenticationFilter,
-		    	                org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+    		 .addFilterBefore(jwtAuthenticationFilter,
+	    	                org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 		    

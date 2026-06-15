@@ -1,9 +1,11 @@
 //src/pages/login.js
-
 import React, { useState } from "react";
 import api from "../api/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
-function Login({ onLogin }) {
+function Login() {
+	
+	const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -13,9 +15,15 @@ function Login({ onLogin }) {
                 username,
                 password
             });
-
-            localStorage.setItem("token", res.data);
-            onLogin();
+           
+			console.log(res.data);
+			
+            localStorage.setItem("token", res.data.token);
+            
+			//onLogin();
+			
+			navigate("/dashboard");
+			
         } catch (err) {
             alert("Login failed");
             console.error(err);
@@ -30,25 +38,21 @@ function Login({ onLogin }) {
                 type="text"
                 placeholder="Username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-
+                onChange={(e) => setUsername(e.target.value)} />
             <br /><br />
 
             <input
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                onChange={(e) => setPassword(e.target.value)} />
 
             <br /><br />
 
             <button onClick={handleLogin}>
                 Login
             </button>
-        </div>
-    );
+        </div>);
 }
 
 export default Login;
