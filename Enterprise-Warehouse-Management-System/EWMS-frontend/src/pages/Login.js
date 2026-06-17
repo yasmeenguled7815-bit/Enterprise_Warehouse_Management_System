@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import api from "../api/axiosConfig";
 import { useNavigate } from "react-router-dom";
+import "../styles/Login.css";
 
 function Login() {
 	
@@ -31,28 +32,32 @@ function Login() {
     };
 
     return (
-        <div>
-            <h2>Warehouse Login</h2>
+		   <div className="login-container">
 
-            <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)} />
-            <br /><br />
+		     <div className="login-box">
 
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} />
+		       <h1>EWMS Login</h1>
 
-            <br /><br />
+		       <input
+		         type="text"
+		         placeholder="Username"
+		         onChange={(e) => setUsername(e.target.value)}
+		       />
 
-            <button onClick={handleLogin}>
-                Login
-            </button>
-        </div>);
+		       <input
+		         type="password"
+		         placeholder="Password"
+		         onChange={(e) => setPassword(e.target.value)}
+		       />
+
+			   <button onClick={handleLogin}>
+			     Login
+			   </button>
+
+		     </div>
+
+		   </div>
+		);
 }
 
 export default Login;

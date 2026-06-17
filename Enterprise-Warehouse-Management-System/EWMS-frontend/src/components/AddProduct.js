@@ -20,15 +20,43 @@ function AddProduct({ refresh }) {
     };
 
     return(
-        <div>
-            <h3>Add Product</h3>
+		<div className="form-box">
 
-            <input placeholder="Name" OnChange={(e) => setName(e.target.value)} />
-            <input placeholder="Sku" OnChange={(e) => setSku(e.target.value)} />
+		     <h2>Add Product</h2>
 
-            <input type="number" placeholder="Quantity" OnChange={(e) => setQuantity(e.target.value)} />
-            <button onClick={handleAdd}>Add</button>
-        </div>
+		     <input
+		       name="name"
+		       placeholder="Name"
+		       value={product.name}
+		       onChange={handleChange}
+		     />
+
+		     <input
+		       name="sku"
+		       placeholder="SKU"
+		       value={product.sku}
+		       onChange={handleChange}
+		     />
+
+		     <input
+		       name="price"
+		       placeholder="Price"
+		       value={product.price}
+		       onChange={handleChange}
+		     />
+
+		     <input
+		       name="quantity"
+		       placeholder="Quantity"
+		       value={product.quantity}
+		       onChange={handleChange}
+		     />
+
+		     <button onClick={addProduct}>
+		       Save Product
+		     </button>
+
+		   </div>
     );
 }
 

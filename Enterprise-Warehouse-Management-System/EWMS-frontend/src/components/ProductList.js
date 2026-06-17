@@ -2,15 +2,18 @@
 
 import React, {useEffect,useState} from "react";
 import api from "../api/axiosConfig";
-import "./ProductList.css";
 import { useNavigate } from "react-router-dom";
-//import ProductList from "./src/components/ProductList";
+
+import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
+import "../styles/Table.css";
 
 function ProductList() {
 	
 	const navigate = useNavigate();
 
     const [products, setProducts] = useState([]);
+	const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
         loadProducts();
@@ -30,28 +33,76 @@ function ProductList() {
 	       }
 	   };
 
+	   // Delete product
+	    const deleteProduct = async (id) => {
+	      try {
+	        await api.delete(`/products/${id}`, {
+	          headers: {
+	            Authorization: `Bearer ${localStorage.getItem("token")}`
+	          }
+	        });
+
+	        loadProducts();
+	      } catch (err) {
+	        console.error(err);
+	        alert("Failed to delete product");
+	      }
+	    };
 	   
-	    return (
-	           <div className="dashboard">
-	               <div className="sidebar">
-	                   <ul>
-	                       <li onClick={() => navigate("/dashboard")}>Dashboard</li>
-	                       <li onClick={() => navigate("/products")}>Products</li>
-	                       <li onClick={() => navigate("/inventory")}>Inventory</li>
-	                       <li onClick={() => navigate("/orders")}>Orders</li>
-	                       <li onClick={() => navigate("/suppliers")}>Suppliers</li>
-	                       <li onClick={() => navigate("/reports")}>Reports</li>
-	                       <li onClick={() => {
-	                           localStorage.clear();
-	                           navigate("/");
-	                       }}>
-	                           Logout
-	                       </li>
-	                   </ul>
-	               </div>
-	           </div>
-	       );
-	   }
+		  return (
+		    <>
+		      <AddProduct refresh={loadProducts} />
 
+		      {selectedProduct && (
+		        <EditProduct
+		          product={selectedProduct}
+		          refresh={loadProducts}
+		          close={() => setSelectedProduct(null)}
+		        />
+		      )}
 
-export default ProductList;
+		      <table>
+		        <thead>
+		          <tr>
+		            <th>ID</th>
+		            <th>Name</th>
+		            <th>SKU</th>
+		            <th>Price</th>
+		            <th>Quantity</th>
+		            <th>Actions</th>
+		          </tr>
+		        </thead>
+
+		        <tbody>
+		          {products.map((product) => (
+		            <tr key={product.id}>
+		              <td>{product.id}</td>
+		              <td>{product.name}</td>
+		              <td>{product.sku}</td>
+		              <td>{product.price}</td>
+		              <td>{product.quantity}</td>
+
+		              <td>
+		                <button
+		                  className="edit-btn"
+		                  onClick={() => setSelectedProduct(product)}
+		                >
+		                  Edit
+		                </button>
+
+		                <button
+		                  className="delete-btn"
+		                  onClick={() => deleteProduct(product.id)}
+		                >
+		                  Delete
+		                </button>
+		              </td>
+		            </tr>
+		          ))}
+		        </tbody>
+		      </table>
+		    </>
+		  );
+		}
+
+	export default ProductList;
