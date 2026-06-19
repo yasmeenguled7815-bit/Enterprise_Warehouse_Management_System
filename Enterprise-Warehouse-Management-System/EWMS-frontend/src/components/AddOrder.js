@@ -3,12 +3,12 @@ import axios from "../api/axiosConfig";
 
 function AddOrder({ refresh }) {
 
-  const [order, setOrder] = useState({
-    customerName: "",
-    quantity: "",
-    status: "Pending"
-  });
-
+	const [order, setOrder] = useState({
+	  quantity: "",
+	  productId: "",
+	  status: "CREATED"
+	});
+	
   const handleChange = (e) => {
 
     setOrder({
@@ -20,19 +20,20 @@ function AddOrder({ refresh }) {
 
   const saveOrder = () => {
 
-    axios.post("/orders", order)
-      .then(() => {
-
-        refresh();
-
-        setOrder({
-          customerName: "",
-          quantity: "",
-          status: "Pending"
-        });
-
-      })
-      .catch(error => console.log(error));
+    axios.post("/orders", {
+      quantity: order.quantity,
+      status: "CREATED",
+      product: {
+        id: order.productId
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      refresh();
+    })
+    .catch(error => {
+      console.log(error.response);
+    });
 
   };
 
@@ -43,19 +44,20 @@ function AddOrder({ refresh }) {
       <h2>Add Order</h2>
 
       <input
-        name="customerName"
-        placeholder="Customer Name"
-        value={order.customerName}
-        onChange={handleChange}
-      />
-
-      <input
         type="number"
         name="quantity"
         placeholder="Quantity"
         value={order.quantity}
         onChange={handleChange}
       />
+	  
+	  <input
+	    type="number"
+	    name="productId"
+	    placeholder="Product ID"
+	    value={order.productId}
+	    onChange={handleChange}
+	  />
 
       <button onClick={saveOrder}>
         Save Order

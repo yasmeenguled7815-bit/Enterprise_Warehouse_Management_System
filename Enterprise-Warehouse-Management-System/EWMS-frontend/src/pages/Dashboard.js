@@ -3,7 +3,29 @@ import Navbar from "../components/Navbar";
 import DashboardCards from "../components/DashboardCards";
 import "../styles/Dashboard.css";
 
+import { useEffect, useState } from "react";
+import axios from "../api/axiosConfig";
+
+
 function Dashboard() {
+	const [stats, setStats] = useState({
+	  products: 0,
+	  inventory: 0,
+	  orders: 0,
+	  warehouses: 0,
+	  recentOrders: [],
+	  lowStockProducts: []
+	});
+	
+	useEffect(() => {
+	  axios.get("/dashboard")
+	    .then(res => {
+	      console.log(res.data); // <-- add this
+	      setStats(res.data);
+	    })
+	    .catch(err => console.log(err));
+	}, []);
+	 
   return (
     <>
       <Sidebar />
@@ -18,58 +40,6 @@ function Dashboard() {
 
           <DashboardCards />
 
-          <div className="dashboard-sections">
-
-            <div className="recent-orders">
-
-              <h2>Recent Orders</h2>
-
-              <table>
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-
-                  <tr>
-                    <td>1001</td>
-                    <td>ABC Pvt Ltd</td>
-                    <td>Packed</td>
-                  </tr>
-
-                  <tr>
-                    <td>1002</td>
-                    <td>XYZ Ltd</td>
-                    <td>Pending</td>
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-            <div className="alerts">
-
-              <h2>Low Stock Alerts</h2>
-
-              <ul>
-
-                <li>Keyboard - 5 Left</li>
-
-                <li>Mouse - 3 Left</li>
-
-                <li>Monitor - 2 Left</li>
-
-              </ul>
-
-            </div>
-
-          </div>
 
         </div>
 

@@ -25,18 +25,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private UserDetailsService userDetailsService;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, 
-			HttpServletResponse response,FilterChain filterChain)
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+
 		String path = request.getServletPath();
 
 		if (path.startsWith("/api/auth")) {
-		    filterChain.doFilter(request, response);
-		    return;
+			filterChain.doFilter(request, response);
+			return;
 		}
-		
-		if("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+
+		// Allow preflight requests
+
+		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -46,14 +47,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String username = null;
 		String token = null;
 
+		System.out.println("Request URL: " + path);
+		System.out.println("Authorization Header: " + authHeader);
+
+		// Check Bearer token
+
 		if (authHeader != null && authHeader.startsWith("Bearer ")) {
 			token = authHeader.substring(7);
-			username = jwtUtil.extractUsername(token);
+
+			try {
+				username = jwtUtil.extractUsername(token);
+			} catch (Exception e) {
+				System.out.println("Invalid JWT Token");
+				e.printStackTrace();
+			}
 		}
 
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+			System.out.println("Authorities = " + userDetails.getAuthorities());
 
 			if (jwtUtil.validateToken(token, userDetails.getUsername())) {
 

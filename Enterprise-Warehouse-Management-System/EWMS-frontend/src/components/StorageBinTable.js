@@ -54,7 +54,6 @@ function StorageBinTable() {
             <th>ID</th>
             <th>Bin Code</th>
             <th>Capacity</th>
-            <th>Occupied</th>
             <th>Available Space</th>
             <th>Actions</th>
 
@@ -74,8 +73,6 @@ function StorageBinTable() {
                 <td>{bin.binCode}</td>
 
                 <td>{bin.capacity}</td>
-
-                <td>{bin.occupied}</td>
 
                 <td>{bin.capacity - bin.occupied}</td>
 

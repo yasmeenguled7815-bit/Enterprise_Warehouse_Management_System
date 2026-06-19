@@ -47,7 +47,6 @@ function InventoryTable() {
 
           <th>ID</th>
           <th>Product</th>
-          <th>Warehouse</th>
           <th>Quantity</th>
           <th>Status</th>
           <th>Action</th>
@@ -66,8 +65,6 @@ function InventoryTable() {
               <td>{item.id}</td>
 
               <td>{item.product?.name}</td>
-
-              <td>{item.warehouse?.name}</td>
 
               <td>{item.quantity}</td>
 

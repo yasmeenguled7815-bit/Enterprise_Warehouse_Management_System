@@ -2,6 +2,7 @@ package com.EWMS.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -25,6 +26,7 @@ public class StorageBin {
 
 	@ManyToOne
 	@JoinColumn(name = "warehouse_id")
+	@JsonBackReference
 	private Warehouse warehouse;
 
 	@OneToMany(mappedBy = "storageBin")

@@ -68,7 +68,6 @@ function ProductList() {
 		            <th>Name</th>
 		            <th>SKU</th>
 		            <th>Price</th>
-		            <th>Quantity</th>
 		            <th>Actions</th>
 		          </tr>
 		        </thead>
@@ -80,8 +79,7 @@ function ProductList() {
 		              <td>{product.name}</td>
 		              <td>{product.sku}</td>
 		              <td>{product.price}</td>
-		              <td>{product.quantity}</td>
-
+		              
 		              <td>
 		                <button
 		                  className="edit-btn"

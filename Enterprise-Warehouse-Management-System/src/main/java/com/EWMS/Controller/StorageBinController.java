@@ -16,7 +16,7 @@ import com.EWMS.Entity.StorageBin;
 import com.EWMS.Repository.StorageBinRepository;
 
 @RestController
-@RequestMapping("/api/storagebin")
+@RequestMapping("/api/storagebins")
 public class StorageBinController {
 	
 	

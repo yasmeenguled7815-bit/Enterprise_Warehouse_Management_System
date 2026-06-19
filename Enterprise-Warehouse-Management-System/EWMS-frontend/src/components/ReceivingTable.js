@@ -34,52 +34,39 @@ function ReceivingTable() {
 
       <table>
 
-        <thead>
-
-          <tr>
-
-            <th>ID</th>
-            <th>Supplier</th>
-            <th>Quantity</th>
-            <th>Date</th>
-            <th>Action</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          {
-            receivings.map(receiving => (
-
-              <tr key={receiving.id}>
-
-                <td>{receiving.id}</td>
-
-                <td>{receiving.supplierName}</td>
-
-                <td>{receiving.quantity}</td>
-
-                <td>{receiving.date}</td>
-
-                <td>
-
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteReceiving(receiving.id)}
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-
-            ))
-          }
-
-        </tbody>
+	  <thead>
+	    <tr>
+	      <th>ID</th>
+	      <th>Supplier</th>
+	      <th>Product ID</th>
+	      <th>Bin ID</th>
+	      <th>Quantity</th>
+	      <th>Date</th>
+	      <th>Action</th>
+	    </tr>
+	  </thead>
+		<tbody>
+		{
+		  receivings.map(receiving => (
+		    <tr key={receiving.id}>
+		      <td>{receiving.id}</td>
+		      <td>{receiving.supplierName}</td>
+		      <td>{receiving.product?.id}</td>
+		      <td>{receiving.storageBin?.id}</td>
+		      <td>{receiving.quantityReceived}</td>
+		      <td>{receiving.receivingDate}</td>
+		      <td>
+		        <button
+		          className="delete-btn"
+		          onClick={() => deleteReceiving(receiving.id)}
+		        >
+		          Delete
+		        </button>
+		      </td>
+		    </tr>
+		  ))
+		}
+		</tbody>
 
       </table>
 

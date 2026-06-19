@@ -1,5 +1,10 @@
 package com.EWMS.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -9,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 public class InventoryItem {
 
 	@Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private Integer quantity;
@@ -19,6 +25,7 @@ public class InventoryItem {
 
 	@ManyToOne
 	@JoinColumn(name = "storage_bin_id")
+	@JsonBackReference
 	private StorageBin storageBin;
 
 	public Long getId() {

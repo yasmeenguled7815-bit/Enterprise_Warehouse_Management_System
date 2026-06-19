@@ -1,6 +1,7 @@
 package com.EWMS.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,9 @@ public class ReceivingService {
 	    receiving.setReceivingDate(LocalDate.now());
 
 	    return receivingRepository.save(receiving);
+	}
+
+	public List<Receiving> getAllReceivings() {
+		 return receivingRepository.findAll();
 	}
 }

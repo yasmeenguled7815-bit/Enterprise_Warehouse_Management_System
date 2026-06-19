@@ -6,7 +6,8 @@ function AddWarehouse({ refresh }) {
   const [warehouse, setWarehouse] = useState({
     name: "",
     location: "",
-    capacity: ""
+    country: "",
+	city:""
   });
 
   const handleChange = (e) => {
@@ -28,7 +29,8 @@ function AddWarehouse({ refresh }) {
         setWarehouse({
           name: "",
           location: "",
-          capacity: ""
+		  country: "",
+		  city:""
         });
 
       })
@@ -57,12 +59,20 @@ function AddWarehouse({ refresh }) {
       />
 
       <input
-        type="number"
-        name="capacity"
-        placeholder="Capacity"
-        value={warehouse.capacity}
+        type="country"
+        name="country"
+        placeholder="Country"
+        value={warehouse.country}
         onChange={handleChange}
       />
+	  
+	  <input
+	         type="city"
+	         name="city"
+	         placeholder="City"
+	         value={warehouse.city}
+	         onChange={handleChange}
+	       />
 
       <button onClick={saveWarehouse}>
         Save

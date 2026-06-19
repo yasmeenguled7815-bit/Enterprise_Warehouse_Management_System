@@ -1,5 +1,8 @@
 package com.EWMS.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,11 +44,25 @@ public class OrderService {
 		order.setStatus(status);
 		return orderRepository.save(order);
 	}
-
+	
 	public Order createOrder(Order order) {
 
-        order.setStatus(OrderStatus.CREATED);
+	    order.setStatus(OrderStatus.CREATED);
+	    order.setOrderDate(LocalDateTime.now());
 
-        return orderRepository.save(order);
+	    return orderRepository.save(order);
+	}
+
+	public List<Order> getAllOrders() {
+		return orderRepository.findAll();
+	}
+	
+	public void deleteOrder(Long id) {
+
+	    if (!orderRepository.existsById(id)) {
+	        throw new RuntimeException("Order not found with id: " + id);
+	    }
+
+	    orderRepository.deleteById(id);
 	}
 }

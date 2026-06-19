@@ -23,78 +23,80 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
+
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
-	
+
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Bean
-	public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception{
-		
-		http
-		    .csrf(csrf ->csrf.disable())
-		    .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-		    .authenticationProvider(authenticationProvider(userDetailsService))
-		    .authorizeHttpRequests(auth->auth
-		    		.requestMatchers("/api/auth/**").permitAll()
-		    		
-		    		.requestMatchers("/api/products/**").hasRole("ADMIN")
-		    		
-		    		.requestMatchers("/api/orders/**").hasAnyRole("ADMIN","OPERATOR")
-		    		.anyRequest().authenticated())
-    		 .addFilterBefore(jwtAuthenticationFilter,
-	    	                org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+	public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
+
+		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				.authenticationProvider(authenticationProvider(userDetailsService))
+				.authorizeHttpRequests(auth -> auth
+						
+						.requestMatchers("/api/auth/**").permitAll()
+
+						.requestMatchers("/api/products/**").hasRole("ADMIN")
+
+						.requestMatchers("/api/inventory/**").hasRole("ADMIN")
+						
+						.requestMatchers("/api/orders/**").hasAnyRole("ADMIN", "OPERATOR")
+						
+						.requestMatchers("/api/receiving/**").hasAnyRole("ADMIN","OPERATOR")
+						
+						.anyRequest().authenticated())
+
+				.addFilterBefore(jwtAuthenticationFilter,
+						org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
-		    
+
 	}
-	
+
 	@Bean
-	public AuthenticationManager authenticationManager(
-			AuthenticationConfiguration configuration) throws Exception{
-		
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+
 		return configuration.getAuthenticationManager();
 	}
-	
+
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
 //		return new BCryptPasswordEncoder();
 //	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return NoOpPasswordEncoder.getInstance();
+		return NoOpPasswordEncoder.getInstance();
 	}
-	
+
 	@Bean
 	public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
 
-	    DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
 
-	//    provider.setUserDetailsPasswordService(userDetailsService);
-	    provider.setPasswordEncoder(passwordEncoder());
+		// provider.setUserDetailsPasswordService(userDetailsService);
+		provider.setPasswordEncoder(passwordEncoder());
 
-	    return provider;
+		return provider;
 	}
-	
+
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 
-	    CorsConfiguration configuration = new CorsConfiguration();
+		CorsConfiguration configuration = new CorsConfiguration();
 
-	    configuration.setAllowedOrigins(List.of("http://localhost:3000"));
-	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-	    configuration.setAllowedHeaders(List.of("*"));
-	    configuration.setAllowCredentials(true);
+		configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(List.of("*"));
+		configuration.setAllowCredentials(true);
 
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", configuration);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
 
-	    return source;
+		return source;
 	}
 
-	}
-
-
+}

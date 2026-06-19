@@ -43,7 +43,7 @@ public class Receiving {
 	}
 
 	public Integer getQuantityReceived() {
-		return getQuantityReceived();
+	    return quantityReceived;
 	}
 
 	public void setQuantityReceived(Integer quantityReceived) {

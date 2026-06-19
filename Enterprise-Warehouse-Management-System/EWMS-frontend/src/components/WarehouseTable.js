@@ -16,13 +16,15 @@ function WarehouseTable() {
   }, []);
 
   const fetchWarehouses = () => {
-
     axios.get("/warehouses")
-      .then(response => setWarehouses(response.data))
+      .then(response => {
+		console.log("Response data:", response.data);
+
+        setWarehouses(response.data);
+      })
       .catch(error => console.log(error));
-
   };
-
+  
   const deleteWarehouse = (id) => {
 
     axios.delete(`/warehouses/${id}`)
@@ -54,9 +56,9 @@ function WarehouseTable() {
             <th>ID</th>
             <th>Name</th>
             <th>Location</th>
-            <th>Capacity</th>
+            <th>Country</th>
+			<th>City</th>
             <th>Actions</th>
-
           </tr>
 
         </thead>
@@ -64,7 +66,8 @@ function WarehouseTable() {
         <tbody>
 
           {
-            warehouses.map(warehouse => (
+			  Array.isArray(warehouses) &&
+			  warehouses.map((warehouse) => (
 
               <tr key={warehouse.id}>
 
@@ -74,7 +77,9 @@ function WarehouseTable() {
 
                 <td>{warehouse.location}</td>
 
-                <td>{warehouse.capacity}</td>
+                <td>{warehouse.country}</td>
+				
+				<td>{warehouse.city}</td>
 
                 <td>
 

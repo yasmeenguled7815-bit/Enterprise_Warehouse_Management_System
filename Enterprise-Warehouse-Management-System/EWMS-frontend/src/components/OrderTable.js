@@ -29,21 +29,18 @@ function OrderTable() {
 
   const updateStatus = (order) => {
 
-    let nextStatus = "Pending";
+	let nextStatus = "CREATED";
 
-    if (order.status === "Pending")
-      nextStatus = "Packed";
+	if (order.status === "CREATED")
+	  nextStatus = "PACKED";
 
-    else if (order.status === "Packed")
-      nextStatus = "Shipped";
+	else if (order.status === "PACKED")
+	  nextStatus = "SHIPPED";
 
-    else if (order.status === "Shipped")
-      nextStatus = "Delivered";
+	else if (order.status === "SHIPPED")
+	  nextStatus = "DELIVERED";
 
-    axios.put(`/orders/${order.id}`, {
-      ...order,
-      status: nextStatus
-    })
+	axios.put(`/orders/${order.id}?status=${nextStatus}`)
       .then(() => fetchOrders())
       .catch(error => console.log(error));
 
@@ -53,21 +50,19 @@ function OrderTable() {
     <>
 
       <AddOrder refresh={fetchOrders} />
-
+   
+	  <div className="table-container">
       <table>
 
         <thead>
-
-          <tr>
-
-            <th>ID</th>
-            <th>Customer</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Actions</th>
-
-          </tr>
-
+		  <tr>
+		    <th>ID</th>
+		    <th>Product ID</th>
+		    <th>Quantity</th>
+		    <th>Status</th>
+		    <th>Actions</th>
+		  </tr>
+   
         </thead>
 
         <tbody>
@@ -75,42 +70,35 @@ function OrderTable() {
           {
             orders.map(order => (
 
-              <tr key={order.id}>
+				<tr key={order.id}>
+				  <td>{order.id}</td>
+				  <td>{order.product?.id}</td>
+				  <td>{order.quantity}</td>
+				  <td>{order.status}</td>
 
-                <td>{order.id}</td>
+				  <td>
+				    <button
+				      className="edit-btn"
+				      onClick={() => updateStatus(order)}
+				    >
+				      Next Status
+				    </button>
 
-                <td>{order.customerName}</td>
-
-                <td>{order.quantity}</td>
-
-                <td>{order.status}</td>
-
-                <td>
-
-                  <button
-                    className="edit-btn"
-                    onClick={() => updateStatus(order)}
-                  >
-                    Next Status
-                  </button>
-
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteOrder(order.id)}
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
-              </tr>
-
+				    <button
+				      className="delete-btn"
+				      onClick={() => deleteOrder(order.id)}
+				    >
+				      Delete
+				    </button>
+				  </td>
+				</tr>
             ))
           }
 
         </tbody>
 
       </table>
+	  </div>
 
     </>
   );

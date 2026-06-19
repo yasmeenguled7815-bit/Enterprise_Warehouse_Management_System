@@ -1,61 +1,108 @@
-table{
-width:100%;
-background:white;
-border-collapse:collapse;
-margin-top:20px;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
+/* Container */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
 }
 
-th{
-background:#003366;
-color:white;
-padding:15px;
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-td{
-padding:15px;
-border-bottom:1px solid #ddd;
+/* Header */
+table thead {
+    background: #003366;
+    color: white;
 }
 
-.edit-btn{
-background:orange;
-border:none;
-padding:8px 14px;
-color:white;
-border-radius:5px;
-cursor:pointer;
-margin-right:10px;
+table th {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
-.delete-btn{
-background:red;
-border:none;
-padding:8px 14px;
-color:white;
-border-radius:5px;
-cursor:pointer;
+/* Cells */
+table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
 }
 
-.form-box{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0px 2px 8px rgba(0,0,0,.1);
-margin-bottom:20px;
+/* Alternate row colors */
+table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
-.form-box input{
-width:100%;
-padding:12px;
-margin-top:10px;
-margin-bottom:15px;
+/* Hover effect */
+table tbody tr:hover {
+    background-color: #e9ecef;
 }
 
-.form-box button{
-background:#003366;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:5px;
-cursor:pointer;
+/* Buttons */
+.edit-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin-right: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-btn:hover {
+    background-color: darkorange;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+/* Form */
+.form-box {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-box button {
+    background: #003366;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-box button:hover {
+    background: #004c99;
 }

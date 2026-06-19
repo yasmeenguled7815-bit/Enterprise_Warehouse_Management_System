@@ -5,8 +5,7 @@ function AddStorageBin({ refresh }) {
 
   const [bin, setBin] = useState({
     binCode: "",
-    capacity: "",
-    occupied: ""
+    capacity: ""
   });
 
   const handleChange = (e) => {
@@ -27,8 +26,7 @@ function AddStorageBin({ refresh }) {
 
         setBin({
           binCode: "",
-          capacity: "",
-          occupied: ""
+          capacity: ""
         });
 
       })
@@ -56,15 +54,7 @@ function AddStorageBin({ refresh }) {
         value={bin.capacity}
         onChange={handleChange}
       />
-
-      <input
-        type="number"
-        name="occupied"
-        placeholder="Occupied"
-        value={bin.occupied}
-        onChange={handleChange}
-      />
-
+	  
       <button onClick={saveBin}>
         Save
       </button>
